@@ -4,7 +4,7 @@ on:
   # pull_request_target (not pull_request) so the token can comment on fork PRs.
   # The PR's own code is never executed: it is checked out into ./pr as data only,
   # and parsed by the validator script from the trusted base checkout.
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize, reopened]
     branches:
       - main
@@ -35,7 +35,9 @@ jobs:
     steps:
       - name: Checkout base (trusted validator script)
         uses: actions/checkout@v6
-
+        with:
+          # Opt out of the built-in fork checkout protection
+          allow-unsafe-pr-checkout: true
       - name: Checkout PR head (untrusted, data only)
         if: github.event_name == 'pull_request_target'
         uses: actions/checkout@v6
