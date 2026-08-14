@@ -4,7 +4,7 @@ on:
   # pull_request_target (not pull_request) so the token can comment on fork PRs.
   # The PR's own code is never executed: it is checked out into ./pr as data only,
   # and parsed by the validator script from the trusted base checkout.
-  pull_request_target:
+  pull_request:
     types: [opened, synchronize, reopened]
     branches:
       - main
